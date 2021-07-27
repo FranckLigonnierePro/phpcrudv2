@@ -1,6 +1,11 @@
 <?php
 require "db.php";
-$sql = "SELECT * FROM footballTeam";
+$sql = "SELECT joueur.idJoueur, joueur.nom, joueur.numero, club.nom AS club, poste.nom AS poste FROM joueur
+JOIN club 
+ON club.idClub = joueur.idClub
+JOIN poste 
+ON poste.idPoste = joueur.idPoste";
+
 $statement = $connection->prepare($sql);
 $statement->execute();
 $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
@@ -34,11 +39,11 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
 
                   <?php foreach($joueurs as $joueur):?>
                             <tr>
-                                <td><?=$joueur->id;?></td>
+                                <td><?=$joueur->idJoueur;?></td>
                                 <td><?=$joueur->nom;?></td>
                                 <td><?=$joueur->numero;?></td>
-                                <td><?=$joueur->idClub;?></td>
-                                <td><?=$joueur->idPoste;?></td>
+                                <td><?=$joueur->club;?></td>
+                                <td><?=$joueur->poste;?></td>
                                 <td>
                                     <a href="" class="btn btn-info">Editer</a>
                                     <a href="" class='btn btn-danger'>Supprimer</a>

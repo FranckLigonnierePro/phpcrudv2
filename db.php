@@ -7,7 +7,7 @@ $options = [];
 $connection = new PDO($dsn, $username, $password, $options);
 
 try {
-    print "connexion reussie";
+
 } catch (PDOExeption $e) {
 
     print "error :" . $e->getMessage();

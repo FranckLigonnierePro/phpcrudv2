@@ -3,7 +3,7 @@ require "db.php";
 $sql = "SELECT * FROM poste";
 $statement = $connection->prepare($sql);
 $statement->execute();
-$joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
+$postes = $statement->fetchAll(PDO::FETCH_OBJ)
 ?>
 
     <div class="row">
@@ -21,12 +21,12 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
                             <th>Nom</th>
                         </tr>
 
-                  <?php foreach($joueurs as $joueur):?>
+                  <?php foreach($postes as $poste):?>
                             <tr>
-                                <td><?=$joueur->idPoste;?></td>
-                                <td><?=$joueur->nom;?></td>
+                                <td><?=$poste->idPoste;?></td>
+                                <td><?=$poste->nom;?></td>
                                 <td>
-                                    <a href="" class="btn btn-info">Editer</a>
+                                    <a href="edit.php?id=<?= $poste->idPoste; ?>" class="btn btn-info">Editer</a>
                                     <a href="" class='btn btn-danger'>Supprimer</a>
                                 </td>
                             </tr>       

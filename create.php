@@ -12,7 +12,7 @@ $statement = $connection->prepare($sql);
 $statement->execute();
 $postes = $statement->fetchAll(PDO::FETCH_OBJ);
 
-if(isset($_POST["nom"]) && isset($_POST["nom"]) && isset($_POST["club"]) && isset($_POST["poste"])){
+if(isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && isset($_POST["poste"])){
     
         $nom = $_POST["nom"];
         $numero = $_POST["numero"];

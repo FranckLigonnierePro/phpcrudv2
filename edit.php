@@ -17,13 +17,14 @@ $statement = $connection->prepare($sql);
 $statement->execute([':id' => $id ]);
 $joueur = $statement->fetch(PDO::FETCH_OBJ);
 
-if(isset($_POST["nom"]) && isset($_POST["nom"]) && isset($_POST["club"]) && isset($_POST["poste"])){
+
+if(isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && isset($_POST["poste"])){
     
     $nom = $_POST["nom"];
     $numero = $_POST["numero"];
     $idClub = $_POST["club"];
     $idPoste = $_POST["poste"];
-    $sql = "UPDATE joueur SET nom=:nom, numero=:numero, poste = :poste WHERE idJoueur=:id";
+    $sql = "UPDATE joueur SET nom=:nom, numero=:numero, idClub=:club, idPoste=:poste WHERE idJoueur=:id";
     $statement = $connection->prepare($sql);
 
     if ($statement->execute([":nom" => $nom, ":numero" => $numero, ":club" => $idClub, ":poste" => $idPoste])) {    
@@ -70,7 +71,7 @@ if(isset($_POST["nom"]) && isset($_POST["nom"]) && isset($_POST["club"]) && isse
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
+                <button type="submit" class="btn btn-primary">Modifier</button>
             </form>
         </div>
     </div>

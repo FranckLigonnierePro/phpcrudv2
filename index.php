@@ -25,7 +25,6 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
 
                 <div class="card-body">
                     <table class="table table-bordered">
-
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
@@ -33,7 +32,6 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
                             <th>Club</th>
                             <th>Poste</th>
                         </tr>
-
                   <?php foreach($joueurs as $joueur):?>
                             <tr>
                                 <td><?=$joueur->idJoueur;?></td>
@@ -43,7 +41,7 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
                                 <td><?=$joueur->poste;?></td>
                                 <td>
                                     <a href="edit.php?id=<?= $joueur->idJoueur; ?>" class="btn btn-info">Editer</a>
-                                    <a href="" class='btn btn-danger'>Supprimer</a>
+                                    <a href="delete.php?id=<?= $joueur->idJoueur; ?>" class='btn btn-danger'>Supprimer</a>
                                 </td>
                             </tr>
                    

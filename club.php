@@ -3,7 +3,7 @@ require "db.php";
 $sql = "SELECT * FROM club";
 $statement = $connection->prepare($sql);
 $statement->execute();
-$joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
+$clubs = $statement->fetchAll(PDO::FETCH_OBJ)
 ?>
 
     <div class="row">
@@ -21,12 +21,12 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
                             <th>Nom</th>
                         </tr>
 
-                  <?php foreach($joueurs as $joueur):?>
+                  <?php foreach($clubs as $club):?>
                             <tr>
-                                <td><?=$joueur->idClub;?></td>
-                                <td><?=$joueur->nom;?></td>
+                                <td><?=$club->idClub;?></td>
+                                <td><?=$club->nom;?></td>
                                 <td>
-                                    <a href="" class="btn btn-info">Editer</a>
+                                    <a href="edit.php?id=<?= $club->idClub; ?>" class="btn btn-info">Editer</a>
                                     <a href="" class='btn btn-danger'>Supprimer</a>
                                 </td>
                             </tr>       

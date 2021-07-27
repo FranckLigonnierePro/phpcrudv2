@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require "./db.php";
 
 $sql = "SELECT * FROM club";
 $statement = $connection->prepare($sql);
@@ -11,15 +11,15 @@ $statement = $connection->prepare($sql);
 $statement->execute();
 $postes = $statement->fetchAll(PDO::FETCH_OBJ);
 
-$id = $_GET['id'];
-$sql = 'SELECT * FROM joueur WHERE idJoueur=:id';
+$sql = "SELECT * FROM joueur WHERE idJoueur=:id";
+$id = $_GET["id"];
 $statement = $connection->prepare($sql);
-$statement->execute([':id' => $id ]);
+$statement->execute([":id" => $id]);
 $joueur = $statement->fetch(PDO::FETCH_OBJ);
 
 
-if(isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && isset($_POST["poste"])){
-    
+if (isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && isset($_POST["poste"])) {
+
     $nom = $_POST["nom"];
     $numero = $_POST["numero"];
     $idClub = $_POST["club"];
@@ -27,12 +27,17 @@ if(isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && i
     $sql = "UPDATE joueur SET nom=:nom, numero=:numero, idClub=:club, idPoste=:poste WHERE idJoueur=:id";
     $statement = $connection->prepare($sql);
 
-    if ($statement->execute([":nom" => $nom, ":numero" => $numero, ":club" => $idClub, ":poste" => $idPoste])) {    
+    if ($statement->execute(
+        [
+            ":nom" => $nom, 
+            ":numero" => $numero, 
+            ":club" => $idClub, 
+            ":poste" => $idPoste,
+            ":id" => $id])) {
 
         header("Location: /phpcrud");
     };
 }
-
 ?>
 
 <?php include('./header.php') ?>
@@ -49,25 +54,25 @@ if(isset($_POST["nom"]) && isset($_POST["numero"]) && isset($_POST["club"]) && i
             <form method="post">
                 <div class="form-group">
                     <label>Nom</label>
-                    <input type="text" value="<?= $joueur-> nom?>" class="form-control" name="nom">
+                    <input type="text" value="<?= $joueur->nom ?>" class="form-control" name="nom">
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
-                    <input type="number" value="<?= $joueur-> numero?>"class="form-control" name="numero">
+                    <input type="number" value="<?= $joueur->numero ?>" class="form-control" name="numero">
                 </div>
                 <div class="form-group">
                     <label>Club</label>
                     <select class="form-control" name="club">
-                        <?php foreach($clubs as $club): ?>
-                        <option value="<?= $club-> idClub ?>"><?= $club->nom ?></option>
+                        <?php foreach ($clubs as $club) : ?>
+                            <option value="<?= $club->idClub ?>"><?= $club->nom ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Poste</label>
                     <select class="form-control" name="poste">
-                        <?php foreach($postes as $poste): ?>
-                        <option value="<?= $poste-> idPoste ?>"><?= $poste->nom ?></option>
+                        <?php foreach ($postes as $poste) : ?>
+                            <option value="<?= $poste->idPoste ?>"><?= $poste->nom ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

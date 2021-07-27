@@ -4,7 +4,8 @@ $sql = "SELECT joueur.idJoueur, joueur.nom, joueur.numero, club.nom AS club, pos
 JOIN club 
 ON club.idClub = joueur.idClub
 JOIN poste 
-ON poste.idPoste = joueur.idPoste";
+ON poste.idPoste = joueur.idPoste
+ORDER BY idJoueur ASC" ;
 
 $statement = $connection->prepare($sql);
 $statement->execute();
@@ -41,7 +42,7 @@ $joueurs = $statement->fetchAll(PDO::FETCH_OBJ)
                                 <td><?=$joueur->club;?></td>
                                 <td><?=$joueur->poste;?></td>
                                 <td>
-                                    <a href="" class="btn btn-info">Editer</a>
+                                    <a href="edit.php?id=<?= $joueur->idJoueur; ?>" class="btn btn-info">Editer</a>
                                     <a href="" class='btn btn-danger'>Supprimer</a>
                                 </td>
                             </tr>

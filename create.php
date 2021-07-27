@@ -1,6 +1,34 @@
 <?php
+require "db.php";
+$message = "";
+
+$sql = "SELECT * FROM club";
+$statement = $connection->prepare($sql);
+$statement->execute();
+$clubs = $statement->fetchAll(PDO::FETCH_OBJ);
+
+$sql = "SELECT * FROM poste";
+$statement = $connection->prepare($sql);
+$statement->execute();
+$postes = $statement->fetchAll(PDO::FETCH_OBJ);
+
+if(isset($_POST["nom"]) && isset($_POST["nom"]) && isset($_POST["club"]) && isset($_POST["poste"])){
+    
+        $nom = $_POST["nom"];
+        $numero = $_POST["numero"];
+        $idClub = $_POST["club"];
+        $idPoste = $_POST["poste"];
+        $sql = "INSERT INTO joueur (nom,numero,idClub,idPoste) VALUES (:nom,:numero,:club,:poste)";
+        $statement = $connection->prepare($sql);
+    
+        if ($statement->execute([":nom" => $nom, ":numero" => $numero, ":club" => $idClub, ":poste" => $idPoste])) {    
+
+            $message = "Ajouté avec succes";
+        };
+}
 
 ?>
+
 <?php include('./header.php') ?>
 <div class="container">
 
@@ -28,8 +56,20 @@
                     <input type="number" class="form-control" name="numero">
                 </div>
                 <div class="form-group">
-                    <label>Position</label>
-                    <input type="text" class="form-control" name="position">
+                    <label>Club</label>
+                    <select class="form-control" name="club">
+                        <?php foreach($clubs as $club): ?>
+                        <option value="<?= $club-> idClub ?>"><?= $club->nom ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Poste</label>
+                    <select class="form-control" name="poste">
+                        <?php foreach($postes as $poste): ?>
+                        <option value="<?= $poste-> idPoste ?>"><?= $poste->nom ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
